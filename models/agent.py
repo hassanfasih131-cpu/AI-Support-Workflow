@@ -1,4 +1,6 @@
 #Support Agent Hierarchy and Polymorphism
+#Description: Meaningful polymorphism was added by handle ticket() in all of the child classes
+#Each agent performs different task, it updates notes and status depending on the agent and ticket used
 class SupportAgent():
     def __init__(self,agentId,name,specialization):
         self.agentId = agentId
