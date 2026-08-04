@@ -16,7 +16,7 @@ class Ticket: #blueprint
         return (f"Ticket ID: {self.ticket_id} \n" f"Customer Name: {self.customer_name}\n"
                 f"Message: {self.message}\n" f"Category: {self.category}\n"
                 f"Priority: {self.priority}\n" f"Status: {self.status}\n" 
-                f"Creation Time: {self.creation_time}" f"Notes: {self.notes}")
+                f"Creation Time: {self.creation_time}\n" f"Notes: {self.notes}")
     def addnote(self,note):
         self.notes.append(note)
     def update_status(self,status):
@@ -31,3 +31,18 @@ class Ticket: #blueprint
             print('Invalid Priority')
         else:
             self.priority = priority
+
+#Create Specialised ticket types
+class BillingTicket(Ticket):
+    def __init__(self,ticket_id,customer_name,message,priority):
+        super().__init__(ticket_id,customer_name,message,"Billing",priority)
+
+class TechnicalTicket(Ticket):
+    def __init__(self,ticket_id,customer_name,message,priority):
+        super().__init__(ticket_id,customer_name,message,"Technical",priority)
+class AccountTicket(Ticket):
+    def __init__(self,ticket_id,customer_name,message,priority):
+        super().__init__(ticket_id,customer_name,message,"Account",priority)
+class GeneralTicket(Ticket):
+    def __init__(self,ticket_id,customer_name,message,priority):
+        super().__init__(ticket_id,customer_name,message,"General",priority)
