@@ -20,7 +20,7 @@ class Ticket: #blueprint
     def addnote(self,note):
         self.notes.append(note)
     def update_status(self,status):
-        allowed_status=["Open","Assigned","In Progress","Resolved","Escalated"]
+        allowed_status=["Open","Assigned","In Progress","Resolved"]
         if status not in allowed_status:
             print("Invalid Status")
         else:

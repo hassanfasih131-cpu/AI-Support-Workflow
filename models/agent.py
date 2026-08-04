@@ -1,3 +1,4 @@
+#Support Agent Hierarchy and Polymorphism
 class SupportAgent():
     def __init__(self,agentId,name,specialization):
         self.agentId = agentId
@@ -15,18 +16,32 @@ class BillingAgent(SupportAgent):
         super().__init__(agentId,name,"Billing")
     def handle_ticket(self,ticket):
         ticket.addnote("Handled by Billing Agent")
+        ticket.update_status("Assigned")
 class TechnicalAgent(SupportAgent):
     def __init__(self,agentId,name):
         super().__init__(agentId,name,"Technical")
     def handle_ticket(self,ticket):
         ticket.addnote("Handled by Technical Agent")
+        ticket.update_status("In Progress")
 class AccountAgent(SupportAgent):
     def __init__(self,agentId,name):
         super().__init__(agentId,name,"Account")
     def handle_ticket(self,ticket):
         ticket.addnote("Handled by Account Agent")
+        ticket.update_status("Assigned")
 class GeneralAgent(SupportAgent):
     def __init__(self,agentId,name):
         super().__init__(agentId,name,"General")
     def handle_ticket(self,ticket):
         ticket.addnote("Handled by General Agent")
+        ticket.update_status("Resolved")
+
+#Testing
+'''from models import agent
+from models.ticket import AccountTicket, BillingTicket, TechnicalTicket, GeneralTicket
+from models.agent import AccountAgent, BillingAgent, TechnicalAgent, GeneralAgent
+ticket1 = AccountTicket(1,"Hassan","none","High")
+agent1=AccountAgent(29,"Ali")
+agent1.handle_ticket(ticket1)
+print(ticket1)'''
+#All of the Agent and Tickets were tested one by one to confirm if the status changes or not
