@@ -13,24 +13,28 @@ class SupportAgent():
                 f"Assigned tickets: {self.assigned_tickets}")
     def assign_ticket(self,ticket):
         self.assigned_tickets.append(ticket)
+
 class BillingAgent(SupportAgent):
     def __init__(self,agentId,name):
         super().__init__(agentId,name,"Billing")
     def handle_ticket(self,ticket):
         ticket.addnote("Handled by Billing Agent")
         ticket.update_status("Assigned")
+
 class TechnicalAgent(SupportAgent):
     def __init__(self,agentId,name):
         super().__init__(agentId,name,"Technical")
     def handle_ticket(self,ticket):
         ticket.addnote("Handled by Technical Agent")
         ticket.update_status("In Progress")
+
 class AccountAgent(SupportAgent):
     def __init__(self,agentId,name):
         super().__init__(agentId,name,"Account")
     def handle_ticket(self,ticket):
         ticket.addnote("Handled by Account Agent")
         ticket.update_status("Assigned")
+
 class GeneralAgent(SupportAgent):
     def __init__(self,agentId,name):
         super().__init__(agentId,name,"General")

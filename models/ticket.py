@@ -40,9 +40,11 @@ class BillingTicket(Ticket):
 class TechnicalTicket(Ticket):
     def __init__(self,ticket_id,customer_name,message,priority):
         super().__init__(ticket_id,customer_name,message,"Technical",priority)
+
 class AccountTicket(Ticket):
     def __init__(self,ticket_id,customer_name,message,priority):
         super().__init__(ticket_id,customer_name,message,"Account",priority)
+
 class GeneralTicket(Ticket):
     def __init__(self,ticket_id,customer_name,message,priority):
         super().__init__(ticket_id,customer_name,message,"General",priority)
