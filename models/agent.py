@@ -1,19 +1,7 @@
 #Support Agent Hierarchy and Polymorphism
 #Description: Meaningful polymorphism was added by handle ticket() in all of the child classes
 #Each agent performs different task, it updates notes and status depending on the agent and ticket used
-class SupportAgent():
-    def __init__(self,agentId,name,specialization):
-        self.agentId = agentId
-        self.name = name
-        self.specialization = specialization
-        self.assigned_tickets=[]
-    def __str__(self):
-        return (f"Agent: {self.agentId}\n" f"Name: {self.name}\n" 
-                f"Specialization: {self.specialization}\n" 
-                f"Assigned tickets: {self.assigned_tickets}")
-    def assign_ticket(self,ticket):
-        self.assigned_tickets.append(ticket)
-
+from models.__init__ import SupportAgent
 class BillingAgent(SupportAgent):
     def __init__(self,agentId,name):
         super().__init__(agentId,name,"Billing")
@@ -43,9 +31,7 @@ class GeneralAgent(SupportAgent):
         ticket.update_status("Resolved")
 
 #Testing
-'''from models import agent
-from models.ticket import AccountTicket, BillingTicket, TechnicalTicket, GeneralTicket
-from models.agent import AccountAgent, BillingAgent, TechnicalAgent, GeneralAgent
+'''from models.ticket import AccountTicket, BillingTicket, TechnicalTicket, GeneralTicket
 ticket1 = AccountTicket(1,"Hassan","none","High")
 agent1=AccountAgent(29,"Ali")
 agent1.handle_ticket(ticket1)
