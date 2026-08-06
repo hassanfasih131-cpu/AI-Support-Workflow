@@ -1,13 +1,9 @@
 #Routing Rules
 #Description: Implemented Routing rules, it matches the tickets with their specific agents automatically
-class supportdesk:
+from services.__init__ import supportdesk
+class Routing(supportdesk):
     def __init__(self):
-        self.tickets=[]
-        self.agents=[]
-    def addTicket(self,tickets):
-        self.tickets.append(tickets)
-    def addAgent(self,agents):
-        self.agents.append(agents)
+        super().__init__()
     def routeTicket(self,ticket):
         for agent in self.agents:
             if ticket.category == "Billing" and agent.specialization == "Billing":

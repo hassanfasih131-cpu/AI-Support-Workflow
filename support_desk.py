@@ -1,7 +1,7 @@
 #Support Desk using Composition
 #Description: This class can create, store, filter , and route the tickets
-from services.router import supportdesk
-class SupportD(supportdesk):
+from services.router import Routing
+class SupportD(Routing):
     def find_ticket_id(self,ticket_id):
         for ticket in self.tickets:
             if ticket.ticket_id == ticket_id:
@@ -43,12 +43,12 @@ t1=support.createTicket(ticket1)  #Creates a ticket
 support.addAgent(agent1) #adds agent
 ticket1.update_status("Resolved") #status is updated
 #Routing
-'''support.process_ticket(t1) #Routing Ticket to agent'''
+'''support.process_ticket(t1)''' #Routing Ticket to agent
 #Finding
-'''print("\n",support.find_ticket_id(7)) #finds ticket ID'''
+'''print("\n",support.find_ticket_id(7))''' #finds ticket ID
 #Filter
 '''print(support.filter_ticket(category="Technical"))
 print(support.filter_ticket(status="Resolved"))
 print(support.filter_ticket(priority="High"))'''
 #Count
-'''print(support.count())'''
+'''print(support.count()," is the count ")'''
