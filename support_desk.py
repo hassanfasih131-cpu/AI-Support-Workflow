@@ -52,3 +52,8 @@ print(support.filter_ticket(status="Resolved"))
 print(support.filter_ticket(priority="High"))'''
 #Count
 '''print(support.count()," is the count ")'''
+#Storage in .json file
+from services.storage import Storage
+Store=Storage()
+Store.addTicket(t1)
+Store.SaveTicket(t1)
