@@ -7,6 +7,8 @@ from services.storage import Storage
 support=SupportD()
 Store=Storage()
 
+import json
+
 def menu():
     while True:
         print("1: Submit Ticket\n"
@@ -45,13 +47,27 @@ def menu():
                     elif Type == 4:
                         ticket=GeneralTicket(id,name,message,priority)
                         break
+                support.createTicket(ticket)
+                Store.addTicket(ticket)
+                Store.SaveTicket(support.tickets)
             except ValueError:
                 print("Please enter a valid ticket ID: Value Error")
-        try:
-            support.createTicket(ticket)
-            Store.addTicket(ticket)
-            Store.SaveTicket(support.tickets)
-        except:
-            print("Unable to create ticket")
+            except Exception as e:
+                print("Unable to Create Ticket: ",e)
+
+        elif choice==2:
+            loads = Store.LoadTickets()
+            if not loads:
+                print("\nNo Tickets Found\n")
+            else:
+                for ticket in loads:
+                    print(f"\nTicket ID: {ticket['Ticket ID']}\n"
+                          f"Customer: {ticket['Customer']}\n"
+                          f"Message: {ticket['Message']}\n"
+                          f"Category: {ticket['Category']}\n"
+                          f"Priority: {ticket['Priority']}\n"
+                          f"Status: {ticket['Status']}\n"
+                          f"Creation Time: {ticket['Creation Time']}\n"
+                          f"Notes: {ticket['Notes']}\n ")
 
 menu()

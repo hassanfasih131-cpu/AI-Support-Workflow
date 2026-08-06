@@ -2,6 +2,7 @@
 #Description:Data is saved in the tickets.json file, it exists even when program is closed, or file doesn't exist
 #Test in support_desk.py
 import json
+import os
 from services.__init__ import supportdesk
 from models.__init__ import Ticket
 class Storage(supportdesk,Ticket):
@@ -10,10 +11,10 @@ class Storage(supportdesk,Ticket):
     def SaveTicket(self,ticket):
         data=[]
         for Ticket in self.tickets:
-            data.append({"\nTicket ID":Ticket.ticket_id,"\nCustomer":Ticket.customer_name
-                         ,"\nMessage":Ticket.message,"\nCategory":Ticket.category
-                         ,"\nPriority":Ticket._priority,"\nStatus":Ticket._status,
-                         "\nCreation Time":str(Ticket.creation_time),"\nNotes":Ticket.notes})
+            data.append({"Ticket ID":Ticket.ticket_id,"Customer":Ticket.customer_name
+                         ,"Message":Ticket.message,"Category":Ticket.category
+                         ,"Priority":Ticket._priority,"Status":Ticket._status,
+                         "Creation Time":str(Ticket.creation_time),"Notes":Ticket.notes})
 
         try:
             with open("data/tickets.json","w") as f:
@@ -21,4 +22,13 @@ class Storage(supportdesk,Ticket):
         except FileNotFoundError:
             return []
         except json.JSONDecodeError:
+            return []
+
+    def LoadTickets(self):
+        if not os.path.exists("data/tickets.json"):
+            return []
+        try:
+            with open("data/tickets.json", "r") as f:
+                return json.load(f)  # Returns the list of dictionaries
+        except (json.JSONDecodeError, FileNotFoundError):
             return []
