@@ -69,5 +69,28 @@ def menu():
                           f"Status: {ticket['Status']}\n"
                           f"Creation Time: {ticket['Creation Time']}\n"
                           f"Notes: {ticket['Notes']}\n ")
+        elif choice == 3:
+            try:
+                search_id = int(input("\nEnter the Ticket ID to search: "))
+                data = Store.LoadTickets()
+                support.tickets = []
+                for i in data:
+                    t_shell = GeneralTicket(i['Ticket ID'], i['Customer'], i['Message'],
+                                            i['Priority'])
+                    t_shell._status = i['Status']
+                    t_shell.notes = i['Notes']
+                    support.tickets.append(t_shell)
+                found_ticket = support.find_ticket_id(search_id)
+                if found_ticket:
+                    print(f"Ticket ID: {found_ticket.ticket_id}")
+                    print(f"Customer:  {found_ticket.customer_name}")
+                    print(f"Message:   {found_ticket.message}")
+                    print(f"Priority:  {found_ticket._priority}")
+                    print(f"Status:    {found_ticket._status}")
+                    print(f"Notes:     {found_ticket.notes}\n")
+                else:
+                    print(f"\nTicket ID {search_id} not found in records.\n")
 
+            except ValueError:
+                print("Please enter a valid numeric Ticket ID.")
 menu()

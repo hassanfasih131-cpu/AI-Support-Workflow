@@ -1,0 +1,22 @@
+[
+    {
+        "Ticket ID": 1,
+        "Customer": "fsdgv",
+        "Message": "Sfbgdfb",
+        "Category": "Billing",
+        "Priority": "Low",
+        "Status": "Open",
+        "Creation Time": "2026-08-06 11:48:46.563886",
+        "Notes": []
+    },
+    {
+        "Ticket ID": 3,
+        "Customer": "bsfbs",
+        "Message": "Sfhbd",
+        "Category": "Technical",
+        "Priority": "High",
+        "Status": "Open",
+        "Creation Time": "2026-08-06 11:49:00.008237",
+        "Notes": []
+    }
+]
