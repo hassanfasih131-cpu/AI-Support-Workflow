@@ -90,7 +90,88 @@ def menu():
                     print(f"Notes:     {found_ticket.notes}\n")
                 else:
                     print(f"\nTicket ID {search_id} not found in records.\n")
-
             except ValueError:
                 print("Please enter a valid numeric Ticket ID.")
+        elif choice == 4:
+            try:
+                Filter = int(input("What do you want to filter?:\n"
+                                   "1- Category\n"
+                                   "2- Status\n"
+                                   "3- Priority\n"))
+                datas = Store.LoadTickets()
+                if not datas:
+                    print("\nNo tickets found.\n")
+                    continue
+                support.tickets = []
+                for i in datas:
+                    category_str = i.get('Category', 'General').strip().title()
+                    if category_str == "Billing":
+                        shell = BillingTicket(i['Ticket ID'], i['Customer'], i['Message'], i['Priority'])
+                    elif category_str == "Technical":
+                        shell = TechnicalTicket(i['Ticket ID'], i['Customer'], i['Message'], i['Priority'])
+                    elif category_str == "Account":
+                        shell = AccountTicket(i['Ticket ID'], i['Customer'], i['Message'], i['Priority'])
+                    else:
+                        shell = GeneralTicket(i['Ticket ID'], i['Customer'], i['Message'], i['Priority'])
+                    shell._status = i['Status']
+                    shell.notes = i['Notes']
+                    shell.ticket_id = i['Ticket ID']
+                    shell.customer_name = i['Customer']
+                    shell._priority = i['Priority']
+                    shell.category = category_str
+                    support.tickets.append(shell)
+                filtered_results = []
+                if Filter == 1:
+                    Category = int(input("Enter the category:\n"
+                                         "1- Billing\n"
+                                         "2- Technical\n"
+                                         "3- Account\n"
+                                         "4- General\n"))
+                    if Category == 1:
+                        filtered_results = support.filter_ticket(category="Billing")
+                    elif Category == 2:
+                        filtered_results = support.filter_ticket(category="Technical")
+                    elif Category == 3:
+                        filtered_results = support.filter_ticket(category="Account")
+                    elif Category == 4:
+                        filtered_results = support.filter_ticket(category="General")
+                elif Filter == 2:
+                    Status = int(input("Enter the status:\n"
+                                       "1- Open\n"
+                                       "2- Assigned\n"
+                                       "3- In Progress\n"
+                                       "4- Resolved\n"
+                                       "5- Escalated\n"))
+                    status_map = {1: "Open", 2: "Assigned", 3: "In Progress", 4: "Resolved", 5: "Escalated"}
+                    target_status = status_map.get(Status)
+                    if target_status:
+                        filtered_results = support.filter_ticket(status=target_status)
+                elif Filter == 3:
+                    Priority = int(input("Enter the priority:\n"
+                                         "1- Low\n"
+                                         "2- Medium\n"
+                                         "3- High\n"
+                                         "4- Urgent\n"))
+                    priority_map = {1: "Low", 2: "Medium", 3: "High", 4: "Urgent"}
+                    target_priority = priority_map.get(Priority)
+                    if target_priority:
+                        filtered_results = support.filter_ticket(priority=target_priority)
+
+                if filtered_results:
+                    for ticket in filtered_results:
+                        print(f"Ticket ID: {ticket.ticket_id}\n"
+                              f"Customer: {ticket.customer_name}\n"
+                              f"Category: {ticket.category}\n"
+                              f"Priority: {ticket._priority}\n"
+                              f"Status: {ticket._status}\n"
+                              f"Notes: {ticket.notes}\n")
+                else:
+                    print("\nNo tickets matched your filter criteria.\n")
+
+            except ValueError:
+                print("\nPlease enter a valid numeric selection.\n")
+            except Exception as e:
+                print(f"\nAn error occurred while filtering: {e}\n")
+
+
 menu()
