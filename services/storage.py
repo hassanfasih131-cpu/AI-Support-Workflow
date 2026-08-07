@@ -10,7 +10,7 @@ class Storage(supportdesk,Ticket):
         super().__init__()
     def SaveTicket(self,ticket):
         data=[]
-        for Ticket in self.tickets:
+        for Ticket in ticket:
             data.append({"Ticket ID":Ticket.ticket_id,"Customer":Ticket.customer_name
                          ,"Message":Ticket.message,"Category":Ticket.category
                          ,"Priority":Ticket._priority,"Status":Ticket._status,
