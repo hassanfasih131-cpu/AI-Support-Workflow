@@ -1,12 +1,20 @@
 #Command line Interface
 #Description: The menu is created to submit,view,search,filter Tickets, update status, add notes
 #Route Tickets, View Report
+from models.agent import BillingAgent, TechnicalAgent, AccountAgent, GeneralAgent
 from models.ticket import BillingTicket, TechnicalTicket, AccountTicket, GeneralTicket
 from support_desk import SupportD
 from services.storage import Storage
 support=SupportD()
 Store=Storage()
-
+AGENT1=BillingAgent(1,"Ali")
+AGENT2=TechnicalAgent(2,"Ahmed")
+AGENT3=AccountAgent(3,"Maryum")
+AGENT4=GeneralAgent(4,"Sarah")
+support.addAgent(AGENT1)
+support.addAgent(AGENT2)
+support.addAgent(AGENT3)
+support.addAgent(AGENT4)
 def menu():
     while True:
         print("1: Submit Ticket\n"
@@ -253,5 +261,48 @@ def menu():
             except Exception as e:
                 print(f"\nAn error occurred while adding note: {e}\n")
         elif choice == 7:
-            pass
+            try:
+                ID = int(input("Enter the ticket ID you want to route to an agent:\n"))
+                datas = Store.LoadTickets()
+                if not datas:
+                    print("No tickets found in records.")
+                    continue
+                support.tickets = []
+                for i in datas:
+                    category_str = i.get('Category', 'General')
+                    if category_str == "Billing":
+                        shell = BillingTicket(i['Ticket ID'], i['Customer'], i['Message'], i['Priority'])
+                    elif category_str == "Technical":
+                        shell = TechnicalTicket(i['Ticket ID'], i['Customer'], i['Message'], i['Priority'])
+                    elif category_str == "Account":
+                        shell = AccountTicket(i['Ticket ID'], i['Customer'], i['Message'], i['Priority'])
+                    else:
+                        shell = GeneralTicket(i['Ticket ID'], i['Customer'], i['Message'], i['Priority'])
+                    shell._status = i['Status']
+                    shell.notes = i['Notes']
+                    shell.ticket_id = i['Ticket ID']
+                    shell.customer_name = i['Customer']
+                    shell._priority = i['Priority']
+                    shell.category = category_str
+                    support.tickets.append(shell)
+                found_ticket = support.find_ticket_id(ID)
+                if found_ticket:
+                    print(f"\nRouting Ticket ID {ID} ({found_ticket.category})")
+                    assigned_agent = support.routeTicket(found_ticket)
+                    if assigned_agent:
+                        assigned_agent.handle_ticket(found_ticket)
+                        assigned_agent.assign_ticket(found_ticket)
+                        print(f"\n{found_ticket.ticket_id} is assigned to {assigned_agent.name}")
+                        print("\nTicket Info:\n", found_ticket)
+                        print("\nAgent Info:", assigned_agent)
+                        Store.SaveTicket(support.tickets)
+                    else:
+                        print("No suitable agent for this ticket.")
+                else:
+                    print("\nThe ticket ID was not found.\n")
+
+            except ValueError:
+                print("\nPlease enter a valid numeric Ticket ID.\n")
+            except Exception as e:
+                print(f"\nAn error occurred while routing: {e}\n")
 menu()
