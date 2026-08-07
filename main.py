@@ -24,8 +24,8 @@ def menu():
               "5: Update Status\n"
               "6: Add Notes\n"
               "7: Route Tickets\n"
-              "9: View Reports\n"
-              "10: Exit\n")
+              "8: View Reports\n"
+              "9: Exit\n")
         choice = int(input("Enter your choice: "))
         if choice == 1:
             try:
