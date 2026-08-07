@@ -211,4 +211,47 @@ def menu():
                 print("\nPlease enter a valid numeric selection.\n")
             except Exception as e:
                 print(f"\nAn error occurred while updating status: {e}\n")
+        elif choice == 6:
+            try:
+                ID = int(input("Enter the ticket ID you want to add note for:\n"))
+                datas=Store.LoadTickets()
+                if not datas:
+                    print("No ticket was found")
+                    continue
+                else:
+                    support.tickets = []
+                    for i in datas:
+                        category_str = i.get('Category','General')
+                        if category_str == "Billing":
+                            shell = BillingTicket(i['Ticket ID'], i['Customer'], i['Message'], i['Priority'])
+                        elif category_str == "Technical":
+                            shell = TechnicalTicket(i['Ticket ID'], i['Customer'], i['Message'], i['Priority'])
+                        elif category_str == "Account":
+                            shell = AccountTicket(i['Ticket ID'], i['Customer'], i['Message'], i['Priority'])
+                        else:
+                            shell = GeneralTicket(i['Ticket ID'], i['Customer'], i['Message'], i['Priority'])
+                        shell._status = i['Status']
+                        shell.notes = i['Notes']
+                        shell.ticket_id = i['Ticket ID']
+                        shell.customer_name = i['Customer']
+                        shell._priority = i['Priority']
+                        shell.category = category_str
+                        support.tickets.append(shell)
+                    found_ticket=support.find_ticket_id(ID)
+                    if found_ticket:
+                        newnote=input("Enter the new note you want to add:\n")
+                        if newnote:
+                            found_ticket.addnote(newnote)
+                            Store.SaveTicket(support.tickets)
+                            print("Successfully added new note\n")
+                        else:
+                            print("\nThe new note cant be empty.\n")
+                    else:
+                        print("\nThe ticket ID was not found.\n")
+            except ValueError:
+                print("\nPlease enter a valid numeric selection.\n")
+            except Exception as e:
+                print(f"\nAn error occurred while adding note: {e}\n")
+        elif choice == 7:
+            pass
 menu()
