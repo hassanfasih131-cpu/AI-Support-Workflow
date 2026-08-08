@@ -23,7 +23,7 @@ support.addAgent(AGENT4)
 def menu():
     while True:
         try:
-            print("UNLESS SPECIFIED, USE NUMBER WHEN YOU INPUT DATA")
+            print("\nUNLESS SPECIFIED, USE NUMBER WHEN YOU INPUT DATA")
             print("\n1: Submit Ticket\n"
                   "2: View Ticket\n"
                   "3: Search Ticket\n"
@@ -158,7 +158,7 @@ def menu():
                         Status = int(input("Enter the status:\n" #input a number to select status to filter
                                            "1- Open\n"
                                            "2- Assigned\n"
-                                           "3- InProgress\n"
+                                           "3- In Progress\n"
                                            "4- Resolved\n"
                                            "5- Escalated\n"))
                         # assigns a number to the exact text used in data
