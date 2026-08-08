@@ -23,6 +23,7 @@ support.addAgent(AGENT4)
 def menu():
     while True:
         try:
+            print("UNLESS SPECIFIED, USE NUMBER WHEN YOU INPUT DATA")
             print("\n1: Submit Ticket\n"
                   "2: View Ticket\n"
                   "3: Search Ticket\n"
