@@ -10,8 +10,8 @@ from services.storage import Storage
 support=SupportD()
 Store=Storage()
 #Creating Agents
-AGENT1=BillingAgent(1,"Ali")
-AGENT2=TechnicalAgent(2,"Ahmed")
+AGENT1=BillingAgent(1,"Ahmed")
+AGENT2=TechnicalAgent(2,"Ali")
 AGENT3=AccountAgent(3,"Maryum")
 AGENT4=GeneralAgent(4,"Sarah")
 #Append Agents

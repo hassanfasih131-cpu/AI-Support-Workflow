@@ -160,7 +160,6 @@ UNLESS SPECIFIED, USE NUMBER WHEN YOU INPUT DATA
 
 Enter your choice: 
 
-You can use this menu depending on what you want to do
 
 # Test Cases
 The following test cases were performed
@@ -226,7 +225,7 @@ The following test cases were performed
 - Enter the ticket ID you want to route to an agent: 1
 
 - Routing Ticket ID 1 (Billing)
-- 1 is assigned to Ali
+- 1 is assigned to Ahmed
 
 - Ticket Info:
 - Ticket ID: 1
@@ -240,7 +239,7 @@ The following test cases were performed
 
 - Agent Info:
 - Agent: 1
-- Name: Ali
+- Name: Ahmed
 - Specialization: Billing
 - Assigned tickets: [BillingTicket object]
 
